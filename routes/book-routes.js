@@ -6,7 +6,7 @@ const router = express.Router();
 
 // view new addition
 router.get('/new-additions', async (req, res) => {
-    await Book.find()
+    await Book.find({ isNewAddition: true })
         .then(books => {
             res.render('new-additions', {
                 title: 'New Additions',
@@ -18,7 +18,7 @@ router.get('/new-additions', async (req, res) => {
 
 // add new books
 router.post('/add', async (req, res) => {
-    const book = new Book.create({
+    let book = new Book({
         title: req.body.title,
         author: req.body.author,
         isbn: req.body.isbn,

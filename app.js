@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 // routes import
 const routes = require('./routes/routes');
 const bookRoutes = require('./routes/book-routes');
+const { render } = require('ejs');
 
 // init app
 const app = express();
@@ -30,6 +31,11 @@ app.use(express.urlencoded({ extended: true }));
 // view engine
 app.set('view engine', 'ejs')
 
-//router
+// routes
 app.use('/', routes);
 app.use('/books', bookRoutes);
+
+// error
+app.use((req, res) => {
+    res.redirect('/');
+});

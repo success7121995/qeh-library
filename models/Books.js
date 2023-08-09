@@ -40,3 +40,15 @@ const Book = mongoose.model('Books', bookSchema);
 
 // exports
 module.exports = Book
+
+// json template
+
+// {
+//     "title": "book",
+//     "author": "author",
+//     "isbn": "1234",
+//     "callNo": "1234",
+//     "description": "a Book",
+//     "isNewAddition": true,
+//     "loanable": true
+// }
