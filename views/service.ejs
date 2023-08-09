@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header'); %>
+<body>
+    <%- include('partials/nav'); %>
+    <main class="view">
+        <div class="main-container">
+            <h2>Services</h2>
+            <div class="grid grid-container1x">
+                <table>
+                    <thead>
+                        <tr>
+                        <th></th>
+                        <th colspan="2">Quota (HA Staff)</th>
+                        <th colspan="2">Quota (Student Nurse)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td class="t-content">Loan</td>
+                            <td class="t-content">Holds</td>
+                            <td class="t-content">Loan</td>
+                            <td class="t-content">Holds</td>
+                        </tr>
+                        <tr>
+                            <td>General Books</td>
+                            <td rowspan="5" class="t-content">20</td>
+                            <td rowspan="5" class="t-content">7</td>
+                            <td rowspan="5" class="t-content">5</td>
+                            <td rowspan="5" class="t-content">3</td>
+                        </tr>
+                        <tr>
+                            <td>Leisure Books</td>
+                        </tr>
+                        <tr>
+                            <td>Ha Collections</td>
+                        </tr>
+                        <tr>
+                            <td>ORG Collections</td>
+                        </tr>
+                        <tr>
+                            <td>AV Items</td>
+                        </tr>
+                        <tr>
+                            <td>Reference Books</td>
+                            <td colspan="4" class="t-content">Not For Loan (Library Use Only)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="main-container home-main3 main-article-container">
+                    <div>
+                        <h3>Loan period & Fine</h3>
+                        <p>The loan period is set at a duration of 14 days.</p>
+                        <p>Please present your library card at the circulation counter for book borrowing and renewal. Please return items at the library counter. Overdue fine is HK$5 per item per day.</p>
+                    </div>
+                    <div>
+                        <h3>Renewal</h3>
+                        <p>The loan period is set at a duration of 14 days.</p>
+                        <p>Books can be renewed for 3 times if they are not reserved by another user and overdue fines has been settled, if any. You may make renew by phone, in person or on the web (overdue items cannot be renewed).</p>
+                    </div>  
+                    <div>
+                        <h3>Photocopiers</h3>
+                        <p>Photocopies cost $0.3 / page. Please observe the copyright law when making copies. Some copyright notices are placed by the photocopier for your reference.</p>
+                    </div>  
+                </div>
+            </div>
+            <span class="underscore-link"><a href="/">Return</a></span>
+    </main>
+    <%- include('partials/footer'); %>
+</body>
+</html>
