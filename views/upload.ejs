@@ -7,7 +7,7 @@
         <div class="main-container">
             <h2>Upload</h2>
             <div class="grid grid-container1x">
-                <form action="/books/upload" method="POST" enctype="multipart/form-data">
+                <form id="upload-books" action="/books/upload" method="POST" enctype="multipart/form-data">
                     <div>
                         <label for="title">Title</label>
                         <input type="text" name="title" maxlength="50" autofocus>
@@ -32,13 +32,13 @@
                         <label for="img">Browse an Image</label>
                         <input type="file" name="img">
                     </div>
-                    <div class="check-box">
+                    <div class="checkbox-container">
                         <label for="isNewAddition">New Addition</label>
-                        <input type="checkbox" name="isNewAddition">
+                        <input class="checkbox new-addition" type="checkbox" name="isNewAddition">
                     </div>
-                    <div class="check-box">           
+                    <div class="checkbox-container">           
                         <label for="loanable">Loanable</label>
-                        <input type="checkbox" name="loanable">
+                        <input class="checkbox loanable" type="checkbox" name="loanable">
                     </div>
                     <div>
                         <button type="submit">Submit</button>

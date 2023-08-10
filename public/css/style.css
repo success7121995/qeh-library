@@ -68,7 +68,7 @@ h4, label {
     font-size: 1.8rem;
 }
 
-td, th, span, p, li, button, input {
+td, th, span, p, li, button, input, textarea {
     font-size: 1.6rem;
 }
 
@@ -145,7 +145,7 @@ form div {
     padding: 0.5rem;
 }
 
-.check-box {
+.checkbox-container {
     flex-direction: row;
     padding: 0;
     padding-left: 0.5rem;

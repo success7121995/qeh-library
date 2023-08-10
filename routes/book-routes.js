@@ -43,7 +43,7 @@ router.post('/upload', upload.single('img'), async (req, res) => {
     });
 
     book = await book.save()
-        .then(() => res.status(201).redirect('/'))
+        .then(book => res.status(201).redirect({ book }))
         .catch(err => console.log(err));
 });
 

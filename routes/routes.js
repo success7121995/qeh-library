@@ -6,16 +6,14 @@ const router = express.Router();
 
 // home page
 router.get('/', async (req, res) => {
-    await Book.find({ title: 'booooo'})
+    await Book.find({ isNewAddition: true })
         .then(books => {
             res.render('index', {
                 title: 'Library',
                 books
             });
         })
-        .catch(err => {
-            console.log(err);
-        });
+        .catch(err => console.log(err));
 });
 
 // about
