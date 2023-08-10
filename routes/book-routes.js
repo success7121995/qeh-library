@@ -29,7 +29,7 @@ router.get('/upload', (req, res) => {
 // add new books
 router.post('/upload', upload.single('img'), async (req, res) => {
     // set up file path
-    const fileName = `public/img/book-cover/${req.file.filename}`;
+    const fileName = `../img/book-cover/${req.file.filename}`;
 
     let book = new Book({
         title: req.body.title,
@@ -43,7 +43,7 @@ router.post('/upload', upload.single('img'), async (req, res) => {
     });
 
     book = await book.save()
-        .then(book => res.status(201).json(book))
+        .then(() => res.status(201).redirect('/'))
         .catch(err => console.log(err));
 });
 

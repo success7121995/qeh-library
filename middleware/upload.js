@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
         if (isValid){
             uploadError = null;
         };
-        cb(uploadError, '/public/img/book-cover');
+        cb(uploadError, 'public/img/book-cover');
     },
     filename: (req, file, cb) => {
         const filename = file.originalname.replace(' ', '-');

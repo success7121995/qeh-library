@@ -6,7 +6,7 @@
     --var--primary--color: #A92B59;
     --var--secondary--color: #09425A;
     --var--section--color: #fff;
-    --var--backgroud--color: #ddd;
+    --var--background--color: #ddd;
     --var--font--color: #4F4D4D;
     --var--link--color: #1751cf;
 
@@ -23,7 +23,7 @@ html {
 }
 
 body {
-    background: var(--var--backgroud--color);
+    background: var(--var--background--color);
     width: 100%;
     margin: 0;
     color: var(--var--font--color);
@@ -37,6 +37,18 @@ th,     a, h1, h2, h3, h4, h5, h6 {
 
 ul {
     list-style: none;
+}
+
+input, textarea {
+    font-family: var(--var--font--content);
+    color: var(--var--font--color);
+    border: 1px solid var(--var--background--color);
+    padding: 1rem;
+    outline: none;
+}
+
+textarea {
+    resize: none;
 }
 
 /* font size */
@@ -56,7 +68,7 @@ h4, label {
     font-size: 1.8rem;
 }
 
-td, th, span, p, li, button {
+td, th, span, p, li, button, input {
     font-size: 1.6rem;
 }
 
@@ -115,6 +127,28 @@ td, th {
         font-size: 1.2rem;
         padding: 0.2rem;
     }
+}
+
+/* form */
+form, form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 4rem;    
+}
+
+form div {
+    padding: 0.5rem;
+}
+
+.check-box {
+    flex-direction: row;
+    padding: 0;
+    padding-left: 0.5rem;
 }
 
 /* header */
@@ -368,7 +402,7 @@ main h2::before {
     right: 0;
     width: 70%;
     height: 2px;
-    background: var(--var--backgroud--color);
+    background: var(--var--background--color);
 }
 
 main ul {
@@ -386,7 +420,7 @@ main ul {
     justify-content: center;
     align-items: flex-start;
     width: 85%;
-    border-bottom: 1px solid var(--var--backgroud--color);
+    border-bottom: 1px solid var(--var--background--color);
     margin: 4rem auto;
 }
 
@@ -466,7 +500,7 @@ main ul {
 .grid-item1x {
     flex-direction: row;
     justify-content: flex-start;
-    border-bottom: 1px solid var(--var--backgroud--color);
+    border-bottom: 1px solid var(--var--background--color);
     padding-bottom: 2rem;
     margin-bottom: 5rem;
     height: fit-content;
