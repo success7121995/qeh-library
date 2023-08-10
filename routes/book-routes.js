@@ -1,5 +1,6 @@
 const express = require('express');
 const Book = require('../models/Books');
+const upload = require('../middleware/upload');
 
 // init router
 const router = express.Router();
@@ -17,7 +18,11 @@ router.get('/new-additions', async (req, res) => {
 });
 
 // add new books
-router.post('/add', async (req, res) => {
+router.post('/add', upload.single('img'), async (req, res) => {
+    // set up file path
+    const fileName = req.file.filename;
+    const basePath = `  `
+
     let book = new Book({
         title: req.body.title,
         author: req.body.author,
