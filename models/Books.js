@@ -39,7 +39,7 @@ const bookSchema = mongoose.Schema({
 const Book = mongoose.model('Books', bookSchema);
 
 // exports
-module.exports = Book
+module.exports = Book;
 
 // json template
 
