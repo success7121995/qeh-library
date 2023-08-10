@@ -1,6 +1,7 @@
 const express = require('express');
 const Book = require('../models/Books');
 const upload = require('../middleware/upload');
+const { render } = require('ejs');
 
 // init router
 const router = express.Router();
@@ -9,6 +10,7 @@ const router = express.Router();
 router.get('/new-additions', async (req, res) => {
     await Book.find({ isNewAddition: true })
         .then(books => {
+
             res.render('new-additions', {
                 title: 'New Additions',
                 books
@@ -17,11 +19,17 @@ router.get('/new-additions', async (req, res) => {
         .catch(err => console.log(err));
 });
 
+// upload page
+router.get('/upload', (req, res) => {
+    res.render('upload', {
+        title: 'Upload a new books'
+    });
+});
+
 // add new books
-router.post('/add', upload.single('img'), async (req, res) => {
+router.post('/upload', upload.single('img'), async (req, res) => {
     // set up file path
-    const fileName = req.file.filename;
-    const basePath = `  `
+    const fileName = `public/img/book-cover/${req.file.filename}`;
 
     let book = new Book({
         title: req.body.title,
@@ -29,7 +37,7 @@ router.post('/add', upload.single('img'), async (req, res) => {
         isbn: req.body.isbn,
         callNo: req.body.callNo,
         description: req.body.description,
-        img: req.body.img,
+        img: fileName,
         isNewAddition: req.body.isNewAddition,
         loanable: req.body.loanable
     });

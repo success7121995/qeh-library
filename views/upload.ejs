@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header'); %>
+<body>
+    <%- include('partials/nav'); %>
+    <main class="view">
+        <div class="main-container">
+            <h2>Upload</h2>
+            <div class="grid grid-container1x">
+                <form action="/books/upload">
+                    <label for="title">Title</label>
+                    <input type="text" name="title">
+                    <label for="img">Browse an Image</label>
+                    <input type="file" name="img">
+                </form>
+            </div>
+            <span class="underscore-link"><a href="/">Return</a></span>
+        </div>
+    </main>
+    <%- include('partials/footer'); %>
+</body>
+</html>
