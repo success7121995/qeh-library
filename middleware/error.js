@@ -1,4 +1,4 @@
-const handleError = (err) => {
+const handleError = (err, res) => {
     // reset error
     const errors = {
         // books
@@ -12,8 +12,8 @@ const handleError = (err) => {
 
     // image type error
     if (err.message.includes('Invalid image type')) {
-        errors.img = 'Accept JPG, PNG and JPEG only.'
-        return errors;
+        errors.img = 'Invalid image type.';
+        return errors
     };
 
     // book validator

@@ -28,8 +28,8 @@ router.get('/upload', (req, res) => {
 
 // add new books
 router.post('/upload', upload.single('img'), (req, res) => {
+    console.log(req.file);
     // set up file path
-
     const fileName = (req.file) ? 
         `../img/book-covers/${req.file.filename}`:
         '../img/others/no-image-item.png';
@@ -49,6 +49,7 @@ router.post('/upload', upload.single('img'), (req, res) => {
         .then(savedBook => res.status(201).json({ book: savedBook }))
         .catch(err => {
             const errors = handleError(err);
+            // console.log(err);
             res.json({ errors });
         });
 });

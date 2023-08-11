@@ -1,4 +1,5 @@
 const multer = require('multer');
+const handleError = require('../middleware/error');
 
 const match = {
     'image/png': 'png',
@@ -10,11 +11,14 @@ const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // check if valid img type
         const isValid = match[file.mimetype];
-        let uploadError = new Error('Invalid image type')
+
         if (isValid){
-            uploadError = null;
+            cb(null, 'public/img/book-covers');
+        } else {
+            const uploadError = new Error('Invalid image type')
+            const error = handleError(uploadError);
+            cb(error, 'public/img/book-covers');
         };
-        cb(uploadError, 'public/img/book-covers');
     },
     filename: (req, file, cb) => {
         const filename = file.originalname.replace(' ', '-');
