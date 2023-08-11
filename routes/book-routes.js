@@ -1,7 +1,7 @@
 const express = require('express');
 const Book = require('../models/Books');
 const upload = require('../middleware/upload');
-const { render } = require('ejs');
+const handleError = require('../middleware/error');
 
 // init router
 const router = express.Router();
@@ -27,9 +27,12 @@ router.get('/upload', (req, res) => {
 });
 
 // add new books
-router.post('/upload', upload.single('img'), async (req, res) => {
+router.post('/upload', upload.single('img'), (req, res) => {
     // set up file path
-    const fileName = `../img/book-covers/${req.file.filename}`;
+
+    const fileName = (req.file) ? 
+        `../img/book-covers/${req.file.filename}`:
+        '../img/others/no-image-item.png';
 
     let book = new Book({
         title: req.body.title,
@@ -42,9 +45,12 @@ router.post('/upload', upload.single('img'), async (req, res) => {
         loanable: req.body.loanable
     });
 
-    book = await book.save()
-        .then(book => res.status(201).json({ book }))
-        .catch(err => console.log(err));
+    book.save()
+        .then(savedBook => res.status(201).json({ book: savedBook }))
+        .catch(err => {
+            const errors = handleError(err);
+            res.json({ errors });
+        });
 });
 
 // exports

@@ -17,6 +17,7 @@ uploadBooks.addEventListener('submit', async e => {
     const isbn = uploadBooks.isbn.value;
     const callNo = uploadBooks.callNo.value;
     const description = uploadBooks.description.value;
+    const img = uploadBooks.img.files;
 
     // create a new FormData object
     const formData = new FormData();
@@ -43,5 +44,8 @@ uploadBooks.addEventListener('submit', async e => {
     const data = await res.json();
     if (data.book) {
         console.log(data.book);
-    }
+    };
+    if (data.errors) {
+        console.log(data.errors);
+    };
 });
