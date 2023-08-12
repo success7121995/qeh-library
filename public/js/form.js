@@ -25,7 +25,6 @@ uploadBooks.addEventListener('submit', async e => {
     const callNoError = uploadBooks.querySelector('.callNo.error');
     const descriptionError = uploadBooks.querySelector('.description.error');
     const imgError = uploadBooks.querySelector('.img.error');
-    console.log(imgError)
 
     // reset error messages
     titleError.textContent = '';
