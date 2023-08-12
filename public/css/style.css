@@ -48,6 +48,7 @@ input, textarea {
 }
 
 textarea {
+    line-height: 2.5rem;
     resize: none;
 }
 
@@ -149,6 +150,12 @@ form div {
     flex-direction: row;
     padding: 0;
     padding-left: 0.5rem;
+}
+
+.error {
+    color: var(--var--primary--color);
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
 }
 
 /* header */

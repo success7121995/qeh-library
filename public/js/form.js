@@ -17,7 +17,24 @@ uploadBooks.addEventListener('submit', async e => {
     const isbn = uploadBooks.isbn.value;
     const callNo = uploadBooks.callNo.value;
     const description = uploadBooks.description.value;
-    const img = uploadBooks.img.files;
+
+    // error messages
+    const titleError = uploadBooks.querySelector('.title.error');
+    const authorError = uploadBooks.querySelector('.author.error');
+    const isbnError = uploadBooks.querySelector('.isbn.error');
+    const callNoError = uploadBooks.querySelector('.callNo.error');
+    const descriptionError = uploadBooks.querySelector('.description.error');
+    const imgError = uploadBooks.querySelector('.img.error');
+    console.log(imgError)
+
+    // reset error messages
+    titleError.textContent = '';
+    authorError.textContent = '';
+    isbnError.textContent = '';
+    callNoError.textContent = '';
+    descriptionError.textContent = '';
+    imgError.textContent = '';
+
 
     // create a new FormData object
     const formData = new FormData();
@@ -43,9 +60,14 @@ uploadBooks.addEventListener('submit', async e => {
     // handle the response
     const data = await res.json();
     if (data.book) {
-        console.log(data.book);
+        uploadBooks.reset();
     };
     if (data.errors) {
-        console.log(data.errors);
+        titleError.textContent = data.errors.title;
+        authorError.textContent = data.errors.author;
+        isbnError.textContent = data.errors.isbn;
+        callNoError.textContent = data.errors.callNo;
+        descriptionError.textContent = data.errors.description;
+        imgError.textContent = data.errors.img;
     };
 });

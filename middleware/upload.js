@@ -1,5 +1,4 @@
 const multer = require('multer');
-const handleError = require('../middleware/error');
 
 const match = {
     'image/png': 'png',
@@ -7,20 +6,17 @@ const match = {
     'image/jpeg': 'jpeg',
 };
 
-const storage = multer.diskStorage({
+const storage = multer.diskStorage({ // still got issues
     destination: (req, file, cb) => {
-        // check if valid img type
         const isValid = match[file.mimetype];
+        const uploadError = (!isValid) ?
+            new Error('Invalid Image Type'):
+            null;
 
-        if (isValid){
-            cb(null, 'public/img/book-covers');
-        } else {
-            const uploadError = new Error('Invalid image type')
-            const error = handleError(uploadError);
-            cb(error, 'public/img/book-covers');
-        };
+        cb(uploadError, 'public/img/book-covers');
     },
     filename: (req, file, cb) => {
+        // console.log(file.mimetype);
         const filename = file.originalname.replace(' ', '-');
         const ext = match[file.mimetype];
         cb(null, `${filename}'-'${Date.now()}.${ext}`);

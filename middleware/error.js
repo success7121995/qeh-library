@@ -1,4 +1,4 @@
-const handleError = (err, res) => {
+const handleError = (err) => {
     // reset error
     const errors = {
         // books
@@ -6,7 +6,7 @@ const handleError = (err, res) => {
         author: '',
         isbn: '',
         callNo: '',
-        descritpion: '',
+        description: '',
         img: '',
     };
 

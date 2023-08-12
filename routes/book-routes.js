@@ -9,6 +9,7 @@ const router = express.Router();
 // view new addition
 router.get('/new-additions', async (req, res) => {
     await Book.find({ isNewAddition: true })
+        .sort({ 'title': -1 })
         .then(books => {
 
             res.render('new-additions', {
@@ -26,15 +27,15 @@ router.get('/upload', (req, res) => {
     });
 });
 
+
 // add new books
-router.post('/upload', upload.single('img'), (req, res) => {
-    console.log(req.file);
-    // set up file path
-    const fileName = (req.file) ? 
+router.post('/upload', upload.single('img'), async (req, res) => {
+    // check if img
+    let fileName = (req.file) ? 
         `../img/book-covers/${req.file.filename}`:
         '../img/others/no-image-item.png';
 
-    let book = new Book({
+    let book = await new Book({
         title: req.body.title,
         author: req.body.author,
         isbn: req.body.isbn,
@@ -46,10 +47,10 @@ router.post('/upload', upload.single('img'), (req, res) => {
     });
 
     book.save()
-        .then(savedBook => res.status(201).json({ book: savedBook }))
+        .then(book => res.status(201).json({ book }))
         .catch(err => {
+            console.log(err);
             const errors = handleError(err);
-            // console.log(err);
             res.json({ errors });
         });
 });

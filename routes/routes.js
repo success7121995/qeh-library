@@ -7,6 +7,7 @@ const router = express.Router();
 // home page
 router.get('/', async (req, res) => {
     await Book.find({ isNewAddition: true })
+        .sort({ 'title': -1 })
         .then(books => {
             res.render('index', {
                 title: 'Library',
