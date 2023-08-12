@@ -245,7 +245,6 @@ nav, .nav-ul { /* both are the same format of flex display (row)*/
 }
 
 @media screen and (max-width: 800px) {  
-
     .nav {
         position: relative;
     }
