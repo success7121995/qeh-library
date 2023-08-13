@@ -10,12 +10,11 @@ const year = today.getFullYear(); // this function will be removed after setting
 header.innerHTML = '' + `
     <p>${date}-${month}-${year}</p>
 `
-
 // nav collapse
 const menu = document.getElementById('menu');
 const navUl = document.getElementById('nav-ul')
 
-menu.addEventListener('click', (e) => {
+menu.addEventListener('click', e => {
     e.preventDefault();
     navUl.classList.toggle('nav-ul--expanded');
 });
@@ -24,7 +23,7 @@ menu.addEventListener('click', (e) => {
 const navLi = document.querySelectorAll('.nav-li')
 
 navLi.forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', e => {
       const dropdown = btn.querySelector('.dropdown');
       if (dropdown) {
         dropdown.classList.toggle('dropdown--expanded');
@@ -37,10 +36,27 @@ navLi.forEach(btn => {
 const viewMoreBtns = document.querySelectorAll('.expand-icon');
 
 viewMoreBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', e => {
         e.preventDefault();
         const parent = e.currentTarget.parentElement;
         const bookDetails = parent.querySelector('.book-details');
         bookDetails.classList.toggle('book-details--expanded');
     });
-}); 
+});
+
+// delete book
+const deleteBtns = document.querySelectorAll('.delete');
+
+deleteBtns.forEach(btn => {
+    btn.addEventListener('click', async e => {
+        e.preventDefault();
+        
+        const deleteBtn = e.currentTarget;
+        await fetch(`/books/${deleteBtn.dataset.doc}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => window.location.href = data.redirect)
+            .catch(err => console.log(err));
+    });
+});

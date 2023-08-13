@@ -9,13 +9,13 @@ const isNum = (val) => {
 const isCallNo = (val) => {
     const regex = /[A-Za-z]+([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[Ee]([+-]?\d+))?\s\.[A-Za-z]+[0-9]+\s[0-9]+/i;
     return regex.test(val); // WY18.2 .R68 2019
-}
+};
 
 // schema
 const bookSchema = mongoose.Schema({
     title: {
         type: String,
-        maxlength: [100, 'Maximum length is 100.'],
+        maxlength: [200, 'Maximum length is 200.'],
         required: [true, 'Title is required.']
     },
     author: {
@@ -38,7 +38,7 @@ const bookSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        maxlength: [300, 'Description must be less then 300'],
+        maxlength: [500, 'Description must be less then 500'],
         required: [true, 'Description is required.']
     },
     img: {

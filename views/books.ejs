@@ -5,11 +5,11 @@
     <%- include('partials/nav'); %>
     <main class="view">
         <div class="main-container">
-            <h2>New Additions</h2>
+            <h2>Libaray Catalogue</h2>
             <% if (books.length == 0) { %>
                 <div class="grid grid-container1x">
                     <div class="grid grid-container1x">
-                        <p class="content">No New Addition</p>
+                        <p class="content">No Avaliable</p>
                     </div>
                 </div> 
             <% } else { %>
@@ -25,8 +25,14 @@
                                         <p>Call No: <%= book.callNo %></p>
                                         <p><%= book.description %> </p>
                                     </div>
-                                    <div>
-                                        <button>Reserve</button>
+                                    <div class="book-btns">
+                                        <div>
+                                            <button>Reserve</button>
+                                        </div>
+                                        <div>
+                                            <button>Edit</button>
+                                            <button class="delete" data-doc="<%= book._id%>">Delete</button>
+                                        </div>
                                     </div>
                                 </div>                        
                             </div>

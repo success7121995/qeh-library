@@ -34,7 +34,6 @@ uploadBooks.addEventListener('submit', async e => {
     descriptionError.textContent = '';
     imgError.textContent = '';
 
-
     // create a new FormData object
     const formData = new FormData();
     formData.append('title', title);
