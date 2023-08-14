@@ -26,12 +26,10 @@
                                         <p><%= book.description %> </p>
                                     </div>
                                     <div class="book-btns">
-                                        <div>
-                                            <button>Reserve</button>
-                                        </div>
-                                        <div>
+                                        <button>Reserve</button>
+                                        <div class="book-edit-btns">
                                             <a href="/books/<%= book._id %>"><button>Edit</button></a>
-                                            <button class="delete" data-doc="<%= book._id%>">Delete</button>
+                                            <button class="delete">Delete</button>
                                         </div>
                                     </div>
                                 </div>                        
@@ -40,8 +38,20 @@
                                 <path d="M917.333333 364.8L851.2 298.666667 512 637.866667 172.8 298.666667 106.666667 364.8 512 768z"/>
                             </svg>
                         </div>
+                        <div class="confirm-block">
+                            <div class="confirm-prompt">
+                                <div class="prompt-content">
+                                  <h3>Are you sure?</h3>
+                                  <p>This action cannot be undone.</p>
+                                  <div class="confirm-btn-container">
+                                      <button class="btn cancel-btn">Cancel</button>
+                                      <button class="btn confirm-btn"  data-doc="<%= book._id%>">Confirm</button>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
                     </div>
-                <% }) %>    
+                <% }) %>
             <% } %>
                 <span class="underscore-link"><a href="/">Return</a></span>
             </div>

@@ -133,7 +133,6 @@ if (updateBook) {
             method: 'PUT',
             body: formData
         });
-        console.log(res);
     
         // handle the response
         const data = await res.json();

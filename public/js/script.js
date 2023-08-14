@@ -44,19 +44,45 @@ viewMoreBtns.forEach(btn => {
     });
 });
 
-// delete book
-const deleteBtns = document.querySelectorAll('.delete');
+// toggle delete prompt
+const deletePromptBtns = document.querySelectorAll('.delete');
 
-deleteBtns.forEach(btn => {
-    btn.addEventListener('click', async e => {
-        e.preventDefault();
-        
-        const deleteBtn = e.currentTarget;
-        await fetch(`/books/${deleteBtn.dataset.doc}`, {
-            method: 'DELETE'
-        })
-            .then(res => res.json())
-            .then(data => window.location.href = data.redirect)
-            .catch(err => console.log(err));
+if (deletePromptBtns) {
+    deletePromptBtns.forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+
+            // target the specific confirm prompt
+            const parent = e.currentTarget.closest('.grid');
+            const confirmPrompt = parent.querySelector('.confirm-block')
+            confirmPrompt.classList.toggle('confirm-block--prompt');
+
+            // cancel confirm prompt
+            const cancelBtn = parent.querySelector('.cancel-btn');
+            cancelBtn.addEventListener('click', e => {
+                e.preventDefault();
+
+                confirmPrompt.classList.remove('confirm-block--prompt');
+            });
+        });
     });
-});
+};
+
+// delete book
+const deleteBtns = document.querySelectorAll('.confirm-btn');
+
+if (deleteBtns) {
+    deleteBtns.forEach(btn => {
+        btn.addEventListener('click', async e => {
+            e.preventDefault();
+            
+            const deleteBtn = e.currentTarget;
+            await fetch(`/books/${deleteBtn.dataset.doc}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
+        });
+    });
+}
