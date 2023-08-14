@@ -71,77 +71,82 @@ if (uploadBooks) {
     });
 }
 
+// const action = document.querySelector('href');
+// console.log(action);
 
-// // upload book form
-// const updateBook = document.getElementById('update-book');
 
-// if (updateBook) {
-//     updateBook.addEventListener('submit', async e => {
-//         e.preventDefault();
+// upload book form
+const updateBook = document.getElementById('update-book');
+
+if (updateBook) {
+    updateBook.addEventListener('submit', async e => {
+        e.preventDefault();
     
-//         // get checkbox values
-//         let isNewAddition = updateBook.querySelector('.checkbox.new-addition');
-//         isNewAddition = isNewAddition.checked;
-//         let loanable = updateBook.querySelector('.checkbox.loanable');
-//         loanable = loanable.checked;
+        // get checkbox values
+        let isNewAddition = updateBook.querySelector('.checkbox.new-addition');
+        isNewAddition = isNewAddition.checked;
+        let loanable = updateBook.querySelector('.checkbox.loanable');
+        loanable = loanable.checked;
     
-//         // get form values
-//         const title = updateBook.title.value;
-//         const author = updateBook.author.value;
-//         const isbn = updateBook.isbn.value;
-//         const callNo = updateBook.callNo.value;
-//         const description = updateBook.description.value;
+        // get form values
+        const title = updateBook.title.value;
+        const author = updateBook.author.value;
+        const isbn = updateBook.isbn.value;
+        const callNo = updateBook.callNo.value;
+        const description = updateBook.description.value;
+        const id = updateBook.id.value;
     
-//         // error messages
-//         const titleError = updateBook.querySelector('.title.error');
-//         const authorError = updateBook.querySelector('.author.error');
-//         const isbnError = updateBook.querySelector('.isbn.error');
-//         const callNoError = updateBook.querySelector('.callNo.error');
-//         const descriptionError = updateBook.querySelector('.description.error');
-//         const imgError = updateBook.querySelector('.img.error');
+        // error messages
+        const titleError = updateBook.querySelector('.title.error');
+        const authorError = updateBook.querySelector('.author.error');
+        const isbnError = updateBook.querySelector('.isbn.error');
+        const callNoError = updateBook.querySelector('.callNo.error');
+        const descriptionError = updateBook.querySelector('.description.error');
+        const imgError = updateBook.querySelector('.img.error');
     
-//         // reset error messages
-//         titleError.textContent = '';
-//         authorError.textContent = '';
-//         isbnError.textContent = '';
-//         callNoError.textContent = '';
-//         descriptionError.textContent = '';
-//         imgError.textContent = '';
+        // reset error messages
+        titleError.textContent = '';
+        authorError.textContent = '';
+        isbnError.textContent = '';
+        callNoError.textContent = '';
+        descriptionError.textContent = '';
+        imgError.textContent = '';
     
-//         // create a new FormData object
-//         const formData = new FormData();
-//         formData.append('title', title);
-//         formData.append('author', author);
-//         formData.append('isbn', isbn);
-//         formData.append('callNo', callNo);
-//         formData.append('description', description);
-//         formData.append('isNewAddition', isNewAddition);
-//         formData.append('loanable', loanable);
+        // create a new FormData object
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('author', author);
+        formData.append('isbn', isbn);
+        formData.append('callNo', callNo);
+        formData.append('description', description);
+        formData.append('isNewAddition', isNewAddition);
+        formData.append('loanable', loanable);
     
-//         // check if a file is selected
-//         if (updateBook.img.files.length > 0) {
-//             formData.append('img', updateBook.img.files[0]);
-//         }
+        // check if a file is selected
+        if (updateBook.img.files.length > 0) {
+            formData.append('img', updateBook.img.files[0]);
+        }
+        console.log(updateBook.img.files);
     
-//         // send data to the server
-//         const res = await fetch(`/books/${updateBook.img.files[0]}`, {
-//             method: 'PUT',
-//             body: formData
-//         });
-//         console.log(res);
+        // send data to the server
+        const res = await fetch(`/books/${id}`, {
+            method: 'PUT',
+            body: formData
+        });
+        console.log(res);
     
-//         // handle the response
-//         const data = await res.json();
-//         if (data.book) {
-//             updateBook.reset();
-//         };
-//         if (data.errors) {
-//             titleError.textContent = data.errors.title;
-//             authorError.textContent = data.errors.author;
-//             isbnError.textContent = data.errors.isbn;
-//             callNoError.textContent = data.errors.callNo;
-//             descriptionError.textContent = data.errors.description;
-//             imgError.textContent = data.errors.img;
-//         };
-//     });
-// }
+        // handle the response
+        const data = await res.json();
+        if (data.book) {
+            location.assign('/books');
+        };
+        if (data.errors) {
+            titleError.textContent = data.errors.title;
+            authorError.textContent = data.errors.author;
+            isbnError.textContent = data.errors.isbn;
+            callNoError.textContent = data.errors.callNo;
+            descriptionError.textContent = data.errors.description;
+            imgError.textContent = data.errors.img;
+        };
+    });
+}

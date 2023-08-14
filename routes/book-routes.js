@@ -80,22 +80,32 @@ router.post('/upload', upload.single('img'), async (req, res) => {
 
 // update book
 router.put('/:id', upload.single('img'), async (req, res) => {
-    // check if img
-    let fileName = (req.file) ? 
-        `/img/book-covers/${req.file.filename}`:
-        '/img/others/no-image-item.png';
+    // check if new img, return default img if no
+    const fileName = await Book.findById(req.params.id)
+        .then(book => {
+            const isNewImg = (req.file) ? 
+            `/img/book-covers/${req.file.filename}`:
+            book.img;
 
-    await Book.findByIdAndUpdate(req.params.id, {$set:{
+            // delete the old img
+            if (isNewImg !== book.img) {
+                const imgPath = path.join(__dirname, '../public', book.img);
+                fs.unlink(imgPath, err => err);
+            }
+            return isNewImg;
+        })
+        .catch(err => console.log(err));
+    
+    // update data
+    await Book.findByIdAndUpdate(req.params.id, {
         title: req.body.title,
         author: req.body.author,
         isbn: req.body.isbn,
         callNo: req.body.callNo,
         description: req.body.description,
         img: fileName,
-        isNewAddition: req.body.isNewAddition,
-        loanable: req.body.loanable
-    }}, { new: true })
-        .then(book => res.send(book))
+    }, { new: true })
+        .then(book => res.send({ book }))
         .catch(err => console.log(err));
 });
 
@@ -103,8 +113,8 @@ router.put('/:id', upload.single('img'), async (req, res) => {
 router.delete('/:id', async (req, res) => {
     await Book.findByIdAndDelete(req.params.id)
         .then(book => {
-            const imagePath = path.join(__dirname, '../public', book.img); // get the entire path of the img
-            fs.unlink(imagePath, err => err); // delete the img
+            const imgPath = path.join(__dirname, '../public', book.img); // get the entire path of the img
+            fs.unlink(imgPath, err => err); // delete the img
             res.json({ redirect: '/books' });
         })
         .catch(err => console.log(err));
