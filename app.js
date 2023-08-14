@@ -1,11 +1,12 @@
 require('dotenv').config();
 const express = require('express');
+const methodOverride = require('method-override')
 const mongoose = require('mongoose');
+
 
 // routes import
 const routes = require('./routes/routes');
 const bookRoutes = require('./routes/book-routes');
-const { render } = require('ejs');
 
 // init app
 const app = express();
@@ -27,6 +28,7 @@ mongoose.connect(db_uri)
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 // view engine
 app.set('view engine', 'ejs')

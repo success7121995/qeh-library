@@ -657,6 +657,12 @@ main ul {
     justify-content: space-between;
 }
 
+.book-edit {
+    /* display: flex;
+    justify-items: flex-start;
+    align-items: center; */
+}
+
 .expand-icon {
     display: none;
 }
