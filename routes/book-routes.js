@@ -11,7 +11,7 @@ const router = express.Router();
 // view all books
 router.get('/', async (req, res) => {
     await Book.find()
-        .sort({ 'title': -1 })
+        .sort({ 'title': 1 })
         .then(books => {
             res.render('books', {
                 title: 'Library Catalogue',
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 // view new addition
 router.get('/new-additions', async (req, res) => {
     await Book.find({ isNewAddition: true })
-        .sort({ 'title': -1 })
+        .sort({ 'title': 1 })
         .then(books => {
             res.render('new-additions', {
                 title: 'New Additions',
@@ -65,6 +65,9 @@ router.post('/upload', upload.single('img'), async (req, res) => {
             res.json({ errors });
         });
 });
+
+// update book
+
 
 // delete book
 router.delete('/:id', async (req, res) => {
