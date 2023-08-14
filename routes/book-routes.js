@@ -104,6 +104,8 @@ router.put('/:id', upload.single('img'), async (req, res) => {
         callNo: req.body.callNo,
         description: req.body.description,
         img: fileName,
+        isNewAddition: req.body.isNewAddition,
+        loanable: req.body.loanable
     }, { new: true })
         .then(book => res.send({ book }))
         .catch(err => console.log(err));
