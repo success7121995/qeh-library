@@ -2,7 +2,7 @@ const express = require('express');
 const Book = require('../models/Books');
 const fs = require('fs');
 const path = require('path');
-const upload = require('../middleware/upload');
+const { upload, matchType } = require('../middleware/upload');
 const handleError = require('../middleware/error');
 
 // init router
@@ -55,22 +55,8 @@ router.get('/:id', async (req, res) => {
 // add new books
 router.post('/upload', upload.single('img'), async (req, res) => {
     // check if img
-    const match = {
-        'image/png': 'png',
-        'image/jpg': 'jpg',
-        'image/jpeg': 'jpeg',
-    };
-
-    
-    
-    const ext = match[req.file.mimetype];
-    fileName = (ext) ? 
-        `/img/book-covers/${req.file.filename}.${ext}`:
-        false;
-
-    // let fileName = (req.file) ? 
-    //     `/img/book-covers/${req.file.filename}`:    
-    //     '';
+    const fileName = req.file && matchType[req.file.mimetype] ? 
+    `/img/book-covers/${req.file.filename}` : '';
 
     let book = await new Book({
         title: req.body.title,
@@ -78,7 +64,7 @@ router.post('/upload', upload.single('img'), async (req, res) => {
         isbn: req.body.isbn,
         callNo: req.body.callNo,
         description: req.body.description,
-        // img: fileName,
+        img: fileName,
         isNewAddition: req.body.isNewAddition,
         loanable: req.body.loanable
     });
@@ -86,7 +72,7 @@ router.post('/upload', upload.single('img'), async (req, res) => {
     book.save()
         .then(book => res.status(201).json({ book }))
         .catch(err => {
-            // remove img from folder if the book is unsuccessfully created.
+            // // remove img from folder if the book is unsuccessfully created.
             const imgPath = path.join(__dirname, '../public', fileName);
             fs.unlink(imgPath, err => err);
 

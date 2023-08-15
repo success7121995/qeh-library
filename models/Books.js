@@ -11,6 +11,10 @@ const isCallNo = (val) => {
     return regex.test(val); // WY18.2 .R68 2019
 };
 
+const isVaildImg = (val) => {
+    return (val !== '');
+};
+
 // schema
 const bookSchema = mongoose.Schema({
     title: {
@@ -43,6 +47,7 @@ const bookSchema = mongoose.Schema({
     },
     img: {
         type: String,
+        validate: [isVaildImg, 'Please insert an valid image.'],
     },
     isNewAddition: {
         type: Boolean,
