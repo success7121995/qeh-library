@@ -72,7 +72,7 @@ router.post('/upload', upload.single('img'), async (req, res) => {
     book.save()
         .then(book => res.status(201).json({ book }))
         .catch(err => {
-            // // remove img from folder if the book is unsuccessfully created.
+            // remove img from folder if the book is unsuccessfully created.
             const imgPath = path.join(__dirname, '../public', fileName);
             fs.unlink(imgPath, err => err);
 
@@ -87,7 +87,7 @@ router.put('/:id', upload.single('img'), async (req, res) => {
     // check if new img, return default img if no
     const fileName = await Book.findById(req.params.id)
         .then(book => {
-            const isNewImg = (req.file) ? 
+            const isNewImg = req.file && matchType[req.file.mimetype] ? 
             `/img/book-covers/${req.file.filename}`:
             book.img;
 
