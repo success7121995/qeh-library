@@ -11,8 +11,8 @@ const handleError = (err) => {
     };
 
     // image type error
-    if (err.message.includes('Invalid image type')) {
-        errors.img = 'Invalid image type.';
+    if (err.message === 'invalid image type') {
+        errors.img = 'Invalid Image Type.';
         return errors
     };
 

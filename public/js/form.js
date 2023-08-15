@@ -71,10 +71,6 @@ if (uploadBooks) {
     });
 }
 
-// const action = document.querySelector('href');
-// console.log(action);
-
-
 // upload book form
 const updateBook = document.getElementById('update-book');
 
