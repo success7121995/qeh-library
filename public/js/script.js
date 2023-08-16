@@ -45,10 +45,10 @@ viewMoreBtns.forEach(btn => {
 });
 
 // toggle delete prompt
-const deletePromptBtns = document.querySelectorAll('.delete');
+const prompt = document.querySelectorAll('.delete');
 
-if (deletePromptBtns) {
-    deletePromptBtns.forEach(btn => {
+if (prompt) {
+    prompt.forEach(btn => {
         btn.addEventListener('click', e => {
             e.preventDefault();
 
@@ -85,4 +85,24 @@ if (deleteBtns) {
                 .catch(err => console.log(err));
         });
     });
-}
+};
+
+// prompt btns
+const optionBtns = document.querySelectorAll('.option-btns');
+
+if (optionBtns) {
+    optionBtns.forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+
+            // return function
+            if (btn.classList.contains('return-btn')) {
+                location.assign('/');
+            };
+
+            if (btn.classList.contains('next-btn')) {
+                location.assign('/books/upload');
+            };
+        });
+    });
+};

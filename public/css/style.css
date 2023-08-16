@@ -709,7 +709,6 @@ main ul {
 
 .confirm-block--prompt {
     display: block;
-    z-index: 9999;
 }
 
 .confirm-prompt {
@@ -740,25 +739,22 @@ main ul {
 
 .confirm-btn-container {
     display: flex;
+    flex-direction: row;
     justify-items: space-evenly;
     margin-top: 20px;
 }
 
-.confirm-btn, .cancel-btn {
+.confirm-btn, .cancel-btn, .option-btns {
     padding: 10px 20px;
     margin: 1rem;
 }
 
-.confirm-button {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
+.confirm-button, .option-btns {
+    background-color: var(--var--secondary--color);
 }
 
 .cancel-button {
-    background-color: #f44336;
-    color: #fff;
-    border: none;
+    background-color: var(--var--primary--color);
 }
 
 .confirm-button:hover, .cancel-button:hover {

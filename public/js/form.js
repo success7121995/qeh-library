@@ -49,6 +49,7 @@ if (uploadBooks) {
             formData.append('img', uploadBooks.img.files[0]);
         };
 
+
         // send data to the server
         const res = await fetch('/books/upload', {
             method: 'POST',
@@ -58,7 +59,9 @@ if (uploadBooks) {
         // handle the response
         const data = await res.json();
         if (data.book) {
-            uploadBooks.reset();
+            // prompt
+            const prompt = uploadBooks.querySelector('.confirm-block');
+            prompt.classList.toggle('confirm-block--prompt');
         };
         if (data.errors) {
             titleError.textContent = data.errors.title;
@@ -71,7 +74,7 @@ if (uploadBooks) {
     });
 }
 
-// upload book form
+// update book form
 const updateBook = document.getElementById('update-book');
 
 if (updateBook) {
