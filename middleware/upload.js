@@ -1,6 +1,4 @@
 const multer = require('multer');
-const path = require('path');
-fs = require('fs');
 
 const matchType = {
     'image/png': 'png',
@@ -12,7 +10,7 @@ const storage = multer.diskStorage({ // still got issues
     destination: (req, file, cb) => {
         // check if img
         const isValid = matchType[file.mimetype];
-        const uploadError = !isValid ? undefined : null;
+        const uploadError = !isValid ? new Error('invalid image type') : null;
 
         cb(uploadError, 'public/img/book-covers');
     },

@@ -52,41 +52,92 @@ router.get('/:id', async (req, res) => {
         .catch(err => console.log(err));
 });
 
-// add new books
+
+// 
 router.post('/upload', upload.single('img'), async (req, res) => {
-    // check if img
-    const fileName = req.file && matchType[req.file.mimetype] ? 
-        `/img/book-covers/${req.file.filename}` : '';
+    try {
+        const fileName = req.file ? `/img/book-covers/${req.file.filename}` : null;
 
-    // remove wrong type file from folder
-    if (fileName === '') {
-        const filePath = path.join(__dirname, '../public/img/book-covers', req.file.filename);
-        fs.unlink(filePath, err => err);
-    };
-
-    let book = await new Book({
-        title: req.body.title,
-        author: req.body.author,
-        isbn: req.body.isbn,
-        callNo: req.body.callNo,
-        description: req.body.description,
-        img: fileName,
-        isNewAddition: req.body.isNewAddition,
-        loanable: req.body.loanable
-    });
-
-    book.save()
-        .then(book => res.status(201).json({ book }))
-        .catch(err => {
-            // remove img from folder if the book is unsuccessfully created.
-            const imgPath = path.join(__dirname, '../public', fileName);
-            fs.unlink(imgPath, err => err);
-
-            // handle errors
-            const errors = handleError(err);
-            res.json({ errors });
+        const book = await Book.create({
+            title: req.body.title,
+            author: req.body.author,
+            isbn: req.body.isbn,
+            callNo: req.body.callNo,
+            description: req.body.description,
+            img: fileName,
+            isNewAddition: req.body.isNewAddition,
+            loanable: req.body.loanable
         });
+
+        res.status(201).json({ book });
+    } catch (err) {
+        if (err.message === 'invalid image type') {
+            console.log('yes');
+        }
+        // const errors = handleError(err);
+        // res.status(400).json({ errors });
+    };
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // add new books
+// router.post('/upload', upload.single('img'), async (req, res) => {
+//     // check if img
+//     let fileName = '';
+//     if(req.file) {
+//         fileName = !matchType[req.file.mimetype] ? 
+//         `/img/book-covers/${req.file.filename}` : '';
+
+//     console.log(fileName);
+
+//     let book = await new Book({
+//         title: req.body.title,
+//         author: req.body.author,
+//         isbn: req.body.isbn,
+//         callNo: req.body.callNo,
+//         description: req.body.description,
+//         img: fileName,
+//         isNewAddition: req.body.isNewAddition,
+//         loanable: req.body.loanable
+//     });
+
+//     console.log(req.file);
+//     book.save()
+//         .then(book => res.status(201).json({ book }))
+//         .catch(err => {
+//             // remove img from folder if the book is unsuccessfully created.
+//             const imgPath = path.join(__dirname, '../public', req.file.filename);
+//             fs.unlink(imgPath, err => err);
+
+//             // handle errors
+//             const errors = handleError(err);
+//             res.json({ errors });
+//         });
+// });
 
 // update book (from POE)
 router.put('/:id', upload.single('img'), async (req, res) => {

@@ -12,7 +12,7 @@ const isCallNo = (val) => {
 };
 
 const isVaildImg = (val) => {
-    return (val !== '');
+    return (val !== null);
 };
 
 // schema
