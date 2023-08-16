@@ -133,13 +133,15 @@ router.put('/:id', upload.single('img'), async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-    await Book.findByIdAndDelete(req.params.id);
-        then(() => res.status(200).json({ redirect: 'books' }) )    
-        .catch(err => {
+    await Book.findByIdAndDelete(req.params.id)
+        .then((book) => {
             // del img from folder
             const imgPath = path.join(__dirname, '../public', book.img);
             fs.unlink(imgPath, err => err);
-
+            
+            res.status(200).json({ redirect: '/books' })
+        })    
+        .catch(err => {
             console.log(err);
         });
 });
