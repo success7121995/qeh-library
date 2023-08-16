@@ -47,7 +47,7 @@ if (uploadBooks) {
         // check if a file is selected
         if (uploadBooks.img.files.length > 0) {
             formData.append('img', uploadBooks.img.files[0]);
-        }
+        };
 
         // send data to the server
         const res = await fetch('/books/upload', {
@@ -122,7 +122,6 @@ if (updateBook) {
         if (updateBook.img.files.length > 0) {
             formData.append('img', updateBook.img.files[0]);
         }
-        console.log(updateBook.img.files);
     
         // send data to the server
         const res = await fetch(`/books/${id}`, {
@@ -135,7 +134,9 @@ if (updateBook) {
         if (data.book) {
             location.assign('/books');
         };
+
         if (data.errors) {
+            console.log(data.errors)
             titleError.textContent = data.errors.title;
             authorError.textContent = data.errors.author;
             isbnError.textContent = data.errors.isbn;
@@ -144,4 +145,4 @@ if (updateBook) {
             imgError.textContent = data.errors.img;
         };
     });
-}
+};

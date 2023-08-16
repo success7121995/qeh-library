@@ -1,4 +1,6 @@
 const multer = require('multer');
+const path = require('path');
+fs = require('fs');
 
 const matchType = {
     'image/png': 'png',
@@ -17,6 +19,7 @@ const storage = multer.diskStorage({ // still got issues
     filename: (req, file, cb) => {
         const filename = file.originalname.replace(' ', '-');
         const ext = matchType[file.mimetype];
+
         cb(null, `${filename}'-'${Date.now()}.${ext}`);
     }
 });

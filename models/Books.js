@@ -57,7 +57,7 @@ const bookSchema = mongoose.Schema({
         type: Boolean,
         default: false
     }
-}, { timestamps: true });
+}, { timestamps: true, validateBeforeSave: true });
 
 bookSchema.virtual('id').get(function () {
     return this._id.toHexString();
