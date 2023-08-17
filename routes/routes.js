@@ -19,16 +19,12 @@ router.get('/', async (req, res) => {
 
 // about
 router.get('/about', (req, res) => {
-    res.render('about', {
-        title: 'About Us'
-    });
+    res.render('about', { title: 'About Us' });
 });
 
 // service
 router.get('/service', (req, res) => {
-    res.render('service', {
-        title: 'Service'
-    });
+    res.render('service', { title: 'Service' });
 });
 
 // exports

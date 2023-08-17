@@ -25,35 +25,27 @@ router.get('/new-additions', async (req, res) => {
     await Book.find({ isNewAddition: true })
         .sort({ 'title': 1 })
         .then(books => {
-            res.render('new-additions', {
-                title: 'New Additions',
-                books
-            });
+            res.render('new-additions', {title: 'New Additions', books});
         })
         .catch(err => console.log(err));
 });
 
 // upload page
 router.get('/upload', (req, res) => {
-    res.render('upload', {
-        title: 'Upload a new books'
-    });
+    res.render('upload',{ title: 'Upload a new books' });
 });
 
 // edit page
 router.get('/:id', async (req, res) => {
     await Book.findById(req.params.id)
         .then(book => {
-            res.render('edit', {
-                title: 'Edit',
-                book
-            });
+            res.render('edit', { title: 'Edit', book });
         })
         .catch(err => console.log(err));
 });
 
 
-// 
+// add new book
 router.post('/upload', upload.single('img'), async (req, res) => {
     try {
         // check if valid img, remove from folder if invalid.
@@ -82,9 +74,7 @@ router.post('/upload', upload.single('img'), async (req, res) => {
         res.status(201).json({ book });
     } catch (err) {
         // remove img from folder if the book is unsuccessfully updated.
-        if (req.file) {
-            removeFileFromFolder(req.file.filename);
-        };
+        if (req.file) removeFileFromFolder(req.file.filename);
 
         // handle errors
         const errors = handleError(err);
@@ -125,9 +115,7 @@ router.put('/:id', upload.single('img'), async (req, res) => {
         const savedBook = await updatedBook.save();
         
         // remove img
-        if (req.file) {
-            removeImgFromFolder(book.img);
-        };
+        if (req.file) removeImgFromFolder(book.img);
         res.json({ book: savedBook });
     } catch (err) {
         // remove img from folder if the book is unsuccessfully updated.
@@ -145,15 +133,10 @@ router.delete('/:id', async (req, res) => {
     await Book.findByIdAndDelete(req.params.id)
         .then((book) => {
             // del img from folder
-            if(book.img) {
-                removeImgFromFolder(book.img);
-            };
-            
+            if(book.img) removeImgFromFolder(book.img);
             res.status(200).json({ redirect: '/books' })
         })    
-        .catch(err => {
-            console.log(err);
-        });
+        .catch(err => console.log(err));
 });
 
 // exports

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header'); %>
+<body>
+    <%- include('partials/nav'); %>
+    <main class="view">
+        <div class="main-container login">
+            <h2>Login</h2>
+            <div class="grid grid-container1x">
+                <form id="upload-books" action="/books/upload" enctype="multipart/form-data">
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" name="email" maxlength="50" autofocus>
+                        <p class="email error"></p>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" maxlength="13" >
+                        <p class="password error"></p>
+                    </div>
+                    <div>
+                        <button class="submit-btn" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+            <span class="underscore-link"><a href="/users/signup">Register</a></span>
+            <span class="underscore-link"><a href="#">Forgot your password?</a></span>
+        </div>
+    </main>
+    <%- include('partials/footer'); %>
+</body>
+</html>
