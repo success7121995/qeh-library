@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const isEmail = (val) => {
     const regex = /[a-z0-9]+@ha\.org\.hk/
     return regex.test(val);
-    
 }
 
 const userSchema = mongoose.Schema({
