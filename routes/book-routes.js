@@ -48,7 +48,7 @@ router.get('/:id', async (req, res) => {
 // add new book
 router.post('/upload', upload.single('img'), async (req, res) => {
     try {
-        // check if valid img, remove from folder if invalid.
+        // check if valid img, remove invalid file from folder.
         let fileName = null;
 
         if (req.file) {
@@ -59,7 +59,6 @@ router.post('/upload', upload.single('img'), async (req, res) => {
             };
         };
 
-        // 
         const book = await Book.create({
             title: req.body.title,
             author: req.body.author,
@@ -88,7 +87,7 @@ router.put('/:id', upload.single('img'), async (req, res) => {
     try {
         const book = await Book.findById(req.params.id);
         let fileName = book.img;
-
+        
         if (req.file) {
             if (!matchType[req.file.mimetype]) {
                 removeFileFromFolder(req.file.filename);
@@ -121,7 +120,7 @@ router.put('/:id', upload.single('img'), async (req, res) => {
         // remove img from folder if the book is unsuccessfully updated.
         if (req.file) {
             removeFileFromFolder(req.file.filename);
-        }; 
+        };
 
         // handle errors
         const errors = handleError(err);

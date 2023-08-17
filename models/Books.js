@@ -59,13 +59,14 @@ const bookSchema = mongoose.Schema({
     }
 }, { timestamps: true, validateBeforeSave: true });
 
+// get virtual id
 bookSchema.virtual('id').get(function () {
     return this._id.toHexString();
 });
 
 bookSchema.set('toJSON', { virtuals: true })
 
-const Book = mongoose.model('Books', bookSchema);
+const Book = mongoose.model('books', bookSchema);
 
 // exports
 module.exports = Book;
