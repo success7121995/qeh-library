@@ -2,7 +2,7 @@ const express = require('express');
 const Book = require('../models/Books');
 const fs = require('fs');
 const path = require('path');
-const { upload, matchType } = require('../middleware/upload');
+const { upload, matchType, removeFileFromFolder, replaceImg } = require('../middleware/upload');
 const handleError = require('../middleware/error');
 
 // init router
@@ -56,8 +56,18 @@ router.get('/:id', async (req, res) => {
 // 
 router.post('/upload', upload.single('img'), async (req, res) => {
     try {
-        const fileName = req.file ? `/img/book-covers/${req.file.filename}` : null;
+        // check if valid img, remove from folder if invalid.
+        let fileName = null;
 
+        if (req.file) {
+            if (!matchType[req.file.mimetype]) {
+                removeFileFromFolder(req.file.filename);
+            } else {
+                fileName = `/img/book-covers/${req.file.filename}`;
+            };
+        };
+
+        // 
         const book = await Book.create({
             title: req.body.title,
             author: req.body.author,
@@ -71,87 +81,31 @@ router.post('/upload', upload.single('img'), async (req, res) => {
 
         res.status(201).json({ book });
     } catch (err) {
-        if (err.message === 'invalid image type') {
-            console.log('yes');
-        }
-        // const errors = handleError(err);
-        // res.status(400).json({ errors });
+        // remove img from folder if the book is unsuccessfully updated.
+        if (req.file) {
+            removeFileFromFolder(req.file.filename);
+        };
+
+        // handle errors
+        const errors = handleError(err);
+        res.status(400).json({ errors });
+
     };
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // add new books
-// router.post('/upload', upload.single('img'), async (req, res) => {
-//     // check if img
-//     let fileName = '';
-//     if(req.file) {
-//         fileName = !matchType[req.file.mimetype] ? 
-//         `/img/book-covers/${req.file.filename}` : '';
-
-//     console.log(fileName);
-
-//     let book = await new Book({
-//         title: req.body.title,
-//         author: req.body.author,
-//         isbn: req.body.isbn,
-//         callNo: req.body.callNo,
-//         description: req.body.description,
-//         img: fileName,
-//         isNewAddition: req.body.isNewAddition,
-//         loanable: req.body.loanable
-//     });
-
-//     console.log(req.file);
-//     book.save()
-//         .then(book => res.status(201).json({ book }))
-//         .catch(err => {
-//             // remove img from folder if the book is unsuccessfully created.
-//             const imgPath = path.join(__dirname, '../public', req.file.filename);
-//             fs.unlink(imgPath, err => err);
-
-//             // handle errors
-//             const errors = handleError(err);
-//             res.json({ errors });
-//         });
-// });
 
 // update book (from POE)
 router.put('/:id', upload.single('img'), async (req, res) => {
     try {
         const book = await Book.findById(req.params.id);
+        let fileName = book.img;
 
-        // check if new img, return default img if not
-        const fileName = req.file && matchType[req.file.mimetype] ? 
-            `/img/book-covers/${req.file.filename}` : book.img;
-        
-        // delete the old img if a new one is uploaded
-        if (fileName !== book.img) {
-            const imgPath = path.join(__dirname, '../public', book.img);
-            fs.unlink(imgPath, err => err)
+        if (req.file) {
+            if (!matchType[req.file.mimetype]) {
+                removeFileFromFolder(req.file.filename);
+                fileName = null;
+            } else {
+                fileName = `/img/book-covers/${req.file.filename}`
+            };
         };
 
         // update data
@@ -167,15 +121,19 @@ router.put('/:id', upload.single('img'), async (req, res) => {
             }, { new: true }
         );
 
-        await updatedBook.validate(); // Trigger schema validation
+        await updatedBook.validate();
         const savedBook = await updatedBook.save();
+        
+        // remove img
+        if (req.file) {
+            replaceImg(book.img);
+        };
         res.json({ book: savedBook });
     } catch (err) {
         // remove img from folder if the book is unsuccessfully updated.
         if (req.file) {
-            const imgPath = path.join(__dirname, '../public', `/img/book-covers/${req.file.filename}`);
-            fs.unlink(imgPath, err => err)
-        }
+            removeFileFromFolder(req.file.filename);
+        }; 
 
         // handle errors
         const errors = handleError(err);

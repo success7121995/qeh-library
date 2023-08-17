@@ -49,7 +49,6 @@ if (uploadBooks) {
             formData.append('img', uploadBooks.img.files[0]);
         };
 
-
         // send data to the server
         const res = await fetch('/books/upload', {
             method: 'POST',
