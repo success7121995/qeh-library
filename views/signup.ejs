@@ -5,27 +5,112 @@
     <%- include('partials/nav'); %>
     <%- include('partials/hero'); %>
     <main class="view">
-        <div class="main-container login">
-            <h2>Login</h2>
+        <div class="main-container signup">
+            <h2>Sign Up</h2>
             <div class="grid grid-container1x">
                 <form id="upload-books" action="/books/upload" enctype="multipart/form-data">
+                    <div class="radio">
+                        <div class="radio-option">
+                            <label  for="mr">Mr.</label>
+                            <input type="radio" name="title">          
+                        </div>
+                        <div class="radio-option">
+                            <label for="ms">Ms.</label>
+                            <input type="radio" name="title">
+                        </div>
+                        <div class="radio-option">
+                            
+                        <label for="mrs">Mrs.</label>
+                        <input type="radio" name="title">
+                        </div>
+                        <div class="radio-option">      
+                            <label for="dr">Dr.</label>
+                            <input type="radio" name="title">
+                        </div>
+                        <p class="title error"></p>
+                    </div>
+                    <div>
+                        <label for="firstName">First Name</label>
+                        <input type="text" name="firstName" maxlength="50" autofocus>
+                        <p class="firstName error"></p>
+                    </div>
+                    <div>
+                        <label for="lastName">Last Name</label>
+                        <input type="text" name="lastName" maxlength="50" autofocus>
+                        <p class="lastName error"></p>
+                    </div>  
                     <div>
                         <label for="email">Email</label>
-                        <input type="text" name="email" maxlength="50" autofocus>
+                        <input type="email" name="email" maxlength="50" placeholder="xxxx@ha.org.hk">
                         <p class="email error"></p>
                     </div>
                     <div>
-                        <label for="password">Password</label>
-                        <input type="password" name="password" maxlength="13" >
-                        <p class="password error"></p>
+                        <label for="password1">Password</label>
+                        <input type="password" name="password1" maxlength="12">
+                        <p class="password1 error"></p>
                     </div>
                     <div>
-                        <button class="submit-btn" type="submit">Login</button>
+                        <label for="password2">Confirm Password</label>
+                        <input type="password" name="password2" maxlength="12">
+                        <p class="password2 error"></p>
+                    </div>
+                    <div>
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" maxlength="10">
+                        <p class="phone error"></p>
+                    </div>
+                    <div>
+                        <label for="dept">Department</label>
+                        <select name="dept">
+                            <option value="aed">Accident & Emergency</option>
+                            <option value="an">Anaestheisa</option>
+                            <option value="ch">Chiropody</option>
+                            <option value="cp">Clinical Psychology</option>
+                            <option value="de">Dental</option>
+                            <option value="dr">Diagnostic Radiology</option>
+                            <option value="di">Dietetics</option>
+                            <option value="ent">ENT</option>
+                            <option value="ge">Geriatrics</option>
+                            <option value="go">Gynaecology & Obstetrics</option>
+                            <option value="mp">Medical Physics</option>
+                            <option value="me">Medicine</option>
+                            <option value="ne">Neurosurgery</option>
+                            <option value="nm">Nuclear Medicine</option>
+                            <option value="oc">Occupational Therapy</option>
+                            <option value="op">Ophthalmology</option>
+                            <option value="ot">Orthopaedics & Traumatology</option>
+                            <option value="pd">Paediatrics</option>
+                            <option value="pa">Clinical Pathology</option>
+                            <option value="pm">Pharmacy</option>
+                            <option value="ph">Physiotherapy</option>
+                            <option value="po">Prostheic-Orthotic</option>
+                            <option value="ps">Psychiatric</option>
+                            <option value="ro">Clinical Oncology</option>
+                            <option value="st">Speech Therapy</option>
+                            <option value="su">Surgery</option>
+                            <option value="others">Other Specialities (e.g. FM)</option>
+                            <option value="none">No Specialities (For Nurses & All Other Staff)</option>
+                        </select>
+                        <p class="phone error"></p>
+                    </div>
+ 
+                        <button class="submit-btn" type="submit">Submit</button>
+                    </div>
+
+                    <div class="confirm-block">
+                        <div class="confirm-prompt">
+                            <div class="prompt-content">
+                              <h3>Uploaded!</h3>
+                              <div class="confirm-btn-container">
+                                  <button class="option-btns btn return-btn">Return</button>
+                                  <button class=" option-btns btn next-btn">Next</button>
+                              </div>
+                            </div>
+                          </div>
                     </div>
                 </form>
+                <span class="underscore-link"><a href="/users/login">Login</a></span>
             </div>
-            <span class="underscore-link"><a href="/">Register</a></span>
-            <span class="underscore-link"><a href="/">Forgot your password?</a></span>
         </div>
     </main>
     <%- include('partials/footer'); %>
