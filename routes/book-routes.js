@@ -2,7 +2,7 @@ const express = require('express');
 const Book = require('../models/Books');
 const fs = require('fs');
 const path = require('path');
-const { upload, matchType, removeFileFromFolder, replaceImg } = require('../middleware/upload');
+const { upload, matchType, removeFileFromFolder, removeImgFromFolder } = require('../middleware/upload');
 const handleError = require('../middleware/error');
 
 // init router
@@ -126,7 +126,7 @@ router.put('/:id', upload.single('img'), async (req, res) => {
         
         // remove img
         if (req.file) {
-            replaceImg(book.img);
+            removeImgFromFolder(book.img);
         };
         res.json({ book: savedBook });
     } catch (err) {
@@ -145,8 +145,9 @@ router.delete('/:id', async (req, res) => {
     await Book.findByIdAndDelete(req.params.id)
         .then((book) => {
             // del img from folder
-            const imgPath = path.join(__dirname, '../public', book.img);
-            fs.unlink(imgPath, err => err);
+            if(book.img) {
+                removeImgFromFolder(book.img);
+            };
             
             res.status(200).json({ redirect: '/books' })
         })    

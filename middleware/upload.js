@@ -30,11 +30,11 @@ const removeFileFromFolder = (filename) => {
 };
 
 // replace img
-const replaceImg = (filename) => {
+const removeImgFromFolder = (filename) => {
     filePath = path.join(__dirname, '../public', filename);
     fs.unlink(filePath, err => err);
 };
 
 // exports
-module.exports = { upload, matchType, removeFileFromFolder, replaceImg };
+module.exports = { upload, matchType, removeFileFromFolder, removeImgFromFolder };
 
