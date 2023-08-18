@@ -44,7 +44,6 @@ router.get('/:id', async (req, res) => {
         .catch(err => console.log(err));
 });
 
-
 // add new book
 router.post('/upload', upload.single('img'), async (req, res) => {
     try {

@@ -148,3 +148,88 @@ if (updateBook) {
         };
     });
 };
+
+// sign up
+const signupForm = document.getElementById('signup-form');
+
+if (signupForm) {
+    signupForm.addEventListener('submit', async e => {
+        e.preventDefault();
+
+        // get form values
+        const titles = signupForm.titles.value;
+        const firstName = signupForm.firstName.value;
+        const lastName = signupForm.lastName.value;
+        const email = signupForm.email.value;
+        const password = signupForm.password.value;
+        const password1 = signupForm.password1.value;
+        const phone = signupForm.phone.value;
+        const hospital = signupForm.hospital.value;
+        const dept = signupForm.dept.value;
+        const position = signupForm.position.value;
+
+        // errors message
+        const titlesError = signupForm.querySelector('.titles.error');
+        const firstNameError = signupForm.querySelector('.firstName.error');
+        const lastNameError = signupForm.querySelector('.lastName.error');
+        const emailError = signupForm.querySelector('.email.error');
+        const passwordError = signupForm.querySelector('.password.error');
+        const password1Error = signupForm.querySelector('.password1.error');
+        const phoneError = signupForm.querySelector('.phone.error');;
+        const hospitalError = signupForm.querySelector('.hospital.error');
+        const deptError = signupForm.querySelector('.dept.error');
+        const positionError = signupForm.querySelector('.position.error');
+
+        // reset error messages
+        titlesError.textContent = '';
+        firstNameError.textContent = '';
+        lastNameError.textContent = '';
+        emailError.textContent = '';
+        passwordError.textContent = '';
+        password1Error.textContent = '';
+        phoneError.textContent = '';
+        hospitalError.textContent = '';
+        deptError.textContent = '';
+        positionError.textContent = '';
+
+
+        // check if password matching, if yes send data to server
+        if (password !== password1) {
+            password1Error.textContent = 'Password must match.';
+        } else {
+            const res = await fetch('/users/signup', {
+                method: 'POST',
+                body: JSON.stringify({
+                    titles,
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    phone,
+                    hospital,
+                    dept,
+                    position
+                }),
+                headers: { 'Content-Type': 'application.json' }
+            });
+
+            // handle the response
+            const data = await res.json();
+            if (data.user) {
+                location.assign('/'); // temporary
+            };
+
+            if (data.errors) {
+                titlesError.textContent = data.errors.titles;
+                firstNameError.textContent = data.errors.firstName;
+                lastNameError.textContent = data.errors.lastName;
+                emailError.textContent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+                phoneError.textContent = data.errors.phone;
+                hospitalError.textContent = data.errors.hospital;
+                deptError.textContent = data.errors.dept;
+                positionError.textContent = data.errors.position;
+            };
+        };
+    });
+};

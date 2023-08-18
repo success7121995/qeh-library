@@ -8,25 +8,25 @@
         <div class="main-container signup">
             <h2>Sign Up</h2>
             <div class="grid grid-container1x">
-                <form action="/users/signup" method="POST">
+                <form id="signup-form" action="/users/signup">
                     <div class="radio">
                         <div class="radio-option">
-                            <label  for="mr">Mr.</label>
-                            <input type="radio" name="title" value="mr" checked>          
+                            <label  for="titles">Mr.</label>
+                            <input type="radio" name="titles" value="mr" checked>          
                         </div>
                         <div class="radio-option">
-                            <label for="ms">Ms.</label>
-                            <input type="radio" name="title" value="ms">
+                            <label for="titles">Ms.</label>
+                            <input type="radio" name="titles" value="ms">
                         </div>
                         <div class="radio-option">
-                            <label for="mrs">Mrs.</label>
-                            <input type="radio" name="title" value="mrs">
+                            <label for="titles">Mrs.</label>
+                            <input type="radio" name="titles" value="mrs">
                         </div>
                         <div class="radio-option">      
-                            <label for="dr">Dr.</label>
-                            <input type="radio" name="title" value="dr">
+                            <label for="titles">Dr.</label>
+                            <input type="radio" name="titles" value="dr">
                         </div>
-                        <p class="title error"></p>
+                        <p class="titles error"></p>
                     </div>
                     <div>
                         <label for="firstName">First Name</label>
@@ -46,12 +46,12 @@
                     <div>
                         <label for="password">Password</label>
                         <input type="password" name="password" maxlength="12">
-                        <p class="password1 error"></p>
+                        <p class="password error"></p>
                     </div>
                     <div>
                         <label for="password1">Confirm Password</label>
                         <input type="password" name="password1" maxlength="12">
-                        <p class="password2 error"></p>
+                        <p class="password1 error"></p>
                     </div>
                     <div>
                         <label for="phone">Phone</label>
@@ -59,13 +59,23 @@
                         <p class="phone error"></p>
                     </div>
                     <div>
-                        <label for="hospital">Hospital</label>
+                        <label for="hospital">Job Category</label>
                         <select name="hospital">
                             <option value=""></option>
+                            <option value="ahnh">Alice Ho Miu Ling Nethersole Hospital</option>
                             <option value="cmc">Caritas Medical Centre</option>
+                            <option value="cph">Castle Peak Hospital</option>
+                            <option value="haho">Head Office</option>
+                            <option value="kch">Kwai Chung Hospital</option>
+                            <option value="kwh">Kwong Wah Hospital</option>
+                            <option value="pmh">Princess Margaret Hospital</option>
+                            <option value="pyn">Pamela Youde Nethersole Eastern Hospital</option>
+                            <option value="pmh">Princess Margaret Hospital</option>
                             <option value="pwh">Prince of Wales Hospital</option>
                             <option value="tmh">Tuen Mun Hospital</option>
                             <option value="qeh">Queen Elizabeth Hospital</option>
+                            <option value="qmh">Queen Mary Hospital</option>
+                            <option value="uch">United Christian Hospital</option>
                         </select>
                         <p class="hospital error"></p>
                     </div>
@@ -105,7 +115,7 @@
                         <p class="dept error"></p>
                     </div>
                     <div>
-                        <label for="postion">Postion</label>
+                        <label for="position">Postion</label>
                         <input type="text" name="position" maxlength="50">
                         <p class="position error"></p>
                     </div>

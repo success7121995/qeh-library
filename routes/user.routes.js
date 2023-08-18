@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/User');
 const correspond = require('../middleware/correspond');
+const handleError = require('../middleware/error');
 
 // init router
 const router = express.Router();
@@ -15,17 +16,16 @@ router.get('/signup', (req, res) => {
     res.render('signup', { title: 'Sign Up' });
 });
 
-
 // sign up
 router.post('/signup', async (req, res) => {
     try {
         // correspond values
-        const titleValue = correspond.title[req.body.title];
+        const titlesValue = correspond.titles[req.body.title];
         const hospitalValue = correspond.hospital[req.body.hospital];
         const deptValue = correspond.dept[req.body.dept];
 
-        let user = await new User({
-            title: titleValue,
+        const user = await User.create({
+            titles: titlesValue,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
@@ -36,10 +36,10 @@ router.post('/signup', async (req, res) => {
             position: req.body.position,
         });
 
-        user.save();
-        res.status(201).send(user);
+        res.status(201).json({ user });
     } catch (err) {
-        console.log(err);
+        const errors = handleError(err);
+        res.status(400).json({ errors });
     };
 });
 
