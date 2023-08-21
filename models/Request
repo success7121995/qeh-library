@@ -1,0 +1,33 @@
+const mongoose = require('mongoose');
+
+const requestSchema = mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    },
+    books: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'books',
+        required: true
+    }],
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    status: {
+        type: String,
+        default: 'pending'
+    }
+});
+
+requestSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+requestSchema.set('toJSON', { virtuals: true });
+
+const Request = mongoose.model('requests', requestSchema);
+
+// exports
+module.exports = Request;

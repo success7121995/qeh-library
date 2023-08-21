@@ -106,3 +106,41 @@ if (optionBtns) {
         });
     });
 };
+
+// reserve
+const reserveBtns = document.querySelectorAll('.reserve');
+
+if (reserveBtns) {
+    reserveBtns.forEach(btn => {
+        btn.addEventListener('click', async e => {
+            e.preventDefault();
+
+            const reserveBtn = e.currentTarget;
+            await fetch(`/requests/add-to-cart/${reserveBtn.dataset.doc}`, {
+                method: 'GET'
+            })
+                .then(res => res.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
+        });
+    });
+};
+
+// remove from cart
+const removeBtns = document.querySelectorAll('.remove-btn');
+
+if (removeBtns) {
+    removeBtns.forEach(btn => {
+        btn.addEventListener('click', async e => {
+            e.preventDefault();
+            
+            const removeBtn = e.currentTarget;
+            await fetch(`/requests/${removeBtn.dataset.doc}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
+        });
+    });
+};

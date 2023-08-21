@@ -1,5 +1,5 @@
 const express = require('express');
-const Book = require('../models/Books');
+const Book = require('../models/Book');
 const fs = require('fs');
 const path = require('path');
 const { upload, matchType, removeFileFromFolder, removeImgFromFolder } = require('../middleware/upload');
@@ -13,10 +13,7 @@ router.get('/', async (req, res) => {
     await Book.find()
         .sort({ 'title': 1 })
         .then(books => {
-            res.render('books', {
-                title: 'Library Catalogue',
-                books
-            });
+            res.render('books', {title: 'Library Catalogue',books });
         });
 });
 

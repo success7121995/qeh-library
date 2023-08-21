@@ -535,6 +535,8 @@ main ul {
 @media screen and (max-width: 900px) {
     .grid-item1x {
         flex-direction: column;
+        min-width: 300px;
+        word-wrap: break-word;
         position: relative;
     }
 
@@ -659,7 +661,9 @@ main ul {
     }
 
     .book-details--expanded {
-        height: 450px;
+        width: 50%;
+        height: fit-content;
+        min-height: 400px;
         transition: height 0.4s ease-in-out;;
     }
 
@@ -706,6 +710,7 @@ form div {
 .submit-btn {
     width: 15rem;
     margin: auto;
+    margin-bottom: 2rem;
 }
 
     /* login & sign up container */

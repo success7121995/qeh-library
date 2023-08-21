@@ -6,16 +6,17 @@
     <%- include('partials/hero'); %>
     <main class="view">
         <div class="main-container">
-            <h2>Libaray Catalogue</h2>
-            <% if (books.length == 0) { %>
+            <h2>Cart</h2>
+            <% if (!cart) { %>
                 <div class="grid grid-container1x">
                     <div class="grid grid-container1x">
-                        <p class="content">No Avaliable</p>
+                        <p class="content">No item in cart</p>
                     </div>
                 </div> 
             <% } else { %>
-                <% books.forEach(book => { %>      
-                    <div class="grid grid-container1x">
+                <div class="grid grid-container1x">
+                <% cart.forEach(book => { %>      
+
                         <div class="grid-item grid-item1x">
                             <img src="<%= book.img %>" alt="">                   
                             <div class="book-container">
@@ -24,13 +25,10 @@
                                     <div>
                                         <p>ISBN: <%= book.isbn %></p>
                                         <p>Call No: <%= book.callNo %></p>
-                                        <p><%= book.description %> </p>
                                     </div>
                                     <div class="book-btns">
-                                        <button>Reserve</button>
                                         <div class="book-edit-btns">
-                                            <a href="/books/<%= book._id %>"><button>Edit</button></a>
-                                            <button class="delete">Delete</button>
+                                            <button class="delete">Remove</button>
                                         </div>
                                     </div>
                                 </div>                        
@@ -43,7 +41,7 @@
                             <div class="confirm-prompt">
                                 <div class="prompt-content">
                                   <h3>Are you sure?</h3>
-                                  <p>This action cannot be undone.</p>
+                                  <p></p>
                                   <div class="confirm-btn-container">
                                       <button class="btn cancel-btn">Cancel</button>
                                       <button class="btn confirm-btn remove-btn"  data-doc="<%= book._id%>">Confirm</button>
@@ -51,9 +49,14 @@
                                 </div>
                               </div>
                         </div>
-                    </div>
+
                 <% }) %>
+                    <div class="grid grid-container1x">
+                        <button class="submit-btn" type="submit">Submit</button>
+                    </div>
+                </div>
             <% } %>
+
                 <span class="underscore-link"><a href="/">Return</a></span>
             </div>
     </main>
