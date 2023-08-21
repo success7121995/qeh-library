@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const session = require('express=session');
 
 
 // routes import
@@ -24,9 +26,18 @@ mongoose.connect(db_uri)
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// session
+app.use(session({
+    
+}))
 
 // view engine
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
+
+
+
 
 // routes
 app.use('/', routes);
