@@ -210,7 +210,7 @@ if (signupForm) {
                     dept,
                     position
                 }),
-                headers: { 'Content-Type': 'application.json' }
+                headers: { 'Content-Type': 'application/json'}
             });
 
             // handle the response
@@ -220,6 +220,7 @@ if (signupForm) {
             };
 
             if (data.errors) {
+                console.log(data.errors);
                 titlesError.textContent = data.errors.titles;
                 firstNameError.textContent = data.errors.firstName;
                 lastNameError.textContent = data.errors.lastName;
@@ -230,6 +231,40 @@ if (signupForm) {
                 deptError.textContent = data.errors.dept;
                 positionError.textContent = data.errors.position;
             };
+        };
+    });
+};
+
+const loginForm = document.getElementById('login-form');
+
+if (loginForm) {
+    loginForm.addEventListener('click', async e => {
+        e.preventDefault();
+
+        // get values
+        const email = loginForm.email.value;
+        const password = loginForm.password.value;
+
+        // error message
+        const loginFailed = loginForm.querySelector('.loginFailed.error');
+
+        // reset error message
+        loginFailed.textContent = '';
+
+        // send form data to server
+        const res = await fetch('/users/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+            headers: { 'Content-Type': 'application/json'}
+        });
+
+        const data = await res.json();
+        if (data.user) {
+            location.assign('/');
+        };
+
+        if (data.errors) {
+            loginFailed.textContent = data.errors.loginFailed;
         };
     });
 };

@@ -7,17 +7,16 @@
         <div class="main-container login">
             <h2>Login</h2>
             <div class="grid grid-container1x">
-                <form id="upload-books" action="/books/upload" enctype="multipart/form-data">
+                <form id="login-form" action="/users/login">
                     <div>
                         <label for="email">Email</label>
                         <input type="text" name="email" maxlength="50" autofocus>
-                        <p class="email error"></p>
                     </div>
                     <div>
                         <label for="password">Password</label>
                         <input type="password" name="password" maxlength="13" >
-                        <p class="password error"></p>
                     </div>
+                    <p class="loginFailed error"></p>
                     <div>
                         <button class="submit-btn" type="submit">Login</button>
                     </div>

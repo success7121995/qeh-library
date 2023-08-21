@@ -19,7 +19,10 @@ const handleError = (err) => {
         phone: '',
         hospital: '',
         dept: '',
-        position: ''
+        position: '',
+
+        // login
+        loginFailed: '',
     };
 
     // book validator
@@ -41,6 +44,12 @@ const handleError = (err) => {
         Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         })
+        return errors;
+    };
+
+    // login
+    if (err.message === 'invalid email or password') {
+        errors.loginFailed = 'Email or password is invalid.';
         return errors;
     };
 };

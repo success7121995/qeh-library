@@ -16,13 +16,27 @@ router.get('/signup', (req, res) => {
     res.render('signup', { title: 'Sign Up' });
 });
 
+// login
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.login(email, password);
+        res.status(200).json({ user });
+    } catch (err) {
+        const errors = handleError(err);
+        res.status(400).json({ errors });
+    };
+});
+
 // sign up
 router.post('/signup', async (req, res) => {
     try {
         // correspond values
-        const titlesValue = correspond.titles[req.body.title];
+        const titlesValue = correspond.titles[req.body.titles];
         const hospitalValue = correspond.hospital[req.body.hospital];
         const deptValue = correspond.dept[req.body.dept];
+
+        console.log(req.body);
 
         const user = await User.create({
             titles: titlesValue,

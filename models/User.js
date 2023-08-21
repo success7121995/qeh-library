@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt');
 // validators
 const isEmail = (val) => {
     const regex = /[a-z0-9]+@ha\.org\.hk/;
-    return regex.test(val);
+    return regex.test(val); 
 };
 
 const isValidPassword = (val) => {
-    const regex = /(?=.*[a-zA-Z0-9])/;
+    const regex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/;
     return regex.test(val);
 };
 
@@ -16,7 +16,7 @@ const isValidPassword = (val) => {
 const userSchema = mongoose.Schema({
     titles: {
         type: String,
-        default: 'Mr.',
+        default: 'Mr. ',
         required: [true, 'Title is required.']
     },
     firstName: {
@@ -76,6 +76,19 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, salt);
     next();
 });
+
+// login
+userSchema.statics.login = async function(email, password) {
+    const user = await this.findOne({ email });
+    if (user) {
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (validPassword) {
+            return user;
+        };
+        throw Error('invalid email or password');
+    };
+    throw Error('invalid email or password');
+};
 
 const User = mongoose.model('users', userSchema);
 
